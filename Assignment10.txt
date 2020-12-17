@@ -1,0 +1,728 @@
+
+C:\WINDOWS\system32>mongo
+MongoDB shell version v4.4.2
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("8813bcee-5c6e-4f6b-a45a-da47b0d30ef0") }
+MongoDB server version: 4.4.2
+---
+The server generated these startup warnings when booting:
+        2020-12-14T15:21:17.203+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> show dbs
+admin   0.000GB
+cdac    0.000GB
+config  0.000GB
+local   0.000GB
+> use coursedb
+switched to db coursedb
+> db.movie.insert({"name" : "Lagaan"}
+... )
+WriteResult({ "nInserted" : 1 })
+> show collections
+movie
+> drop movie
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:5
+> drop database
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:5
+> Drop Database
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:5
+> Drop Database movie
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:5
+> Drop Database movie
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:5
+> use sampledb1
+switched to db sampledb1
+> db.dropDatabase()
+{ "ok" : 1 }
+> use coursedb
+switched to db coursedb
+> db.createCollection("April")
+{ "ok" : 1 }
+> show collections
+April
+movie
+> db.April.Database()
+uncaught exception: TypeError: db.April.Database is not a function :
+@(shell):1:1
+> db.April.Drop()
+uncaught exception: TypeError: db.April.Drop is not a function :
+@(shell):1:1
+> db.April.drop()
+true
+> show collections
+movie
+>
+> -- Insert/Create
+uncaught exception: ReferenceError: Insert is not defined :
+@(shell):1:1
+> db.createCollection("student")
+{ "ok" : 1 }
+> db.student.insert({ name: "omkar", id: 1, address:
+... {street:"4",area:"juhu",state:"maharashtra"}})
+WriteResult({ "nInserted" : 1 })
+> db.student.find().pretty()
+{
+        "_id" : ObjectId("5fd9ea9783d0b07e52be45cd"),
+        "name" : "omkar",
+        "id" : 1,
+        "address" : {
+                "street" : "4",
+                "area" : "juhu",
+                "state" : "maharashtra"
+        }
+}
+> db.student.insert({ name: "aditya", _id: 2, address:
+... {street:"4",area:"juhu",state:"maharashtra"}})
+WriteResult({ "nInserted" : 1 })
+> db.student.find().pretty()
+{
+        "_id" : ObjectId("5fd9ea9783d0b07e52be45cd"),
+        "name" : "omkar",
+        "id" : 1,
+        "address" : {
+                "street" : "4",
+                "area" : "juhu",
+                "state" : "maharashtra"
+        }
+}
+{
+        "_id" : 2,
+        "name" : "aditya",
+        "address" : {
+                "street" : "4",
+                "area" : "juhu",
+                "state" : "maharashtra"
+        }
+}
+> db.inventory.insert(
+... {
+... item: "ABC1",
+... details: {
+... model: "14Q3",
+... manufacturer: "XYZ Company"
+... },
+... stock: [ { size: "S", qty: 25 }, { size: "M", qty: 50 } ],
+... category: "clothing"
+... }
+...
+... )
+WriteResult({ "nInserted" : 1 })
+> db.inventory.find().pretty()
+{
+        "_id" : ObjectId("5fd9eb0683d0b07e52be45ce"),
+        "item" : "ABC1",
+        "details" : {
+                "model" : "14Q3",
+                "manufacturer" : "XYZ Company"
+        },
+        "stock" : [
+                {
+                        "size" : "S",
+                        "qty" : 25
+                },
+                {
+                        "size" : "M",
+                        "qty" : 50
+                }
+        ],
+        "category" : "clothing"
+}
+> --Insert array of documents
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:9
+> -- Insert array of documents
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:10
+> var mydocuments =
+... [
+... {
+... item: "ABC2",
+... details: { model: "14Q3", manufacturer: "M1 Corporation" },
+... stock: [ { size: "M", qty: 50 } ],
+... category: "clothing"
+... },
+... {
+... item: "MNO2",
+... details: { model: "14Q3", manufacturer: "ABC Company" },
+... stock: [ { size: "S", qty: 5 }, { size: "M", qty: 5 }, { size:
+... "L", qty: 1 } ],
+... category: "clothing"
+... },
+... {
+... item: "IJK2",
+... details: { model: "14Q2", manufacturer: "M5 Corporation" },
+... stock: [ { size: "S", qty: 5 }, { size: "L", qty: 1 } ],
+... category: "houseware"
+... }
+... ]
+> db.inventory.insert( mydocuments );
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 3,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> BulkWriteResult({
+... "writeErrors" : [ ],
+... "writeConcernErrors" : [ ],
+... "nInserted" : 3,
+... "nUpserted" : 0,
+... "nMatched" : 0,
+... "nModified" : 0,
+... "nRemoved" : 0,
+... "upserted" : [ ]
+... })
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 3,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> mydocuments
+[
+        {
+                "item" : "ABC2",
+                "details" : {
+                        "model" : "14Q3",
+                        "manufacturer" : "M1 Corporation"
+                },
+                "stock" : [
+                        {
+                                "size" : "M",
+                                "qty" : 50
+                        }
+                ],
+                "category" : "clothing"
+        },
+        {
+                "item" : "MNO2",
+                "details" : {
+                        "model" : "14Q3",
+                        "manufacturer" : "ABC Company"
+                },
+                "stock" : [
+                        {
+                                "size" : "S",
+                                "qty" : 5
+                        },
+                        {
+                                "size" : "M",
+                                "qty" : 5
+                        },
+                        {
+                                "size" : "L",
+                                "qty" : 1
+                        }
+                ],
+                "category" : "clothing"
+        },
+        {
+                "item" : "IJK2",
+                "details" : {
+                        "model" : "14Q2",
+                        "manufacturer" : "M5 Corporation"
+                },
+                "stock" : [
+                        {
+                                "size" : "S",
+                                "qty" : 5
+                        },
+                        {
+                                "size" : "L",
+                                "qty" : 1
+                        }
+                ],
+                "category" : "houseware"
+        }
+]
+> db.inventory.insertMany([
+... { item: "journal", qty: 25, tags: ["blank", "red"], size: { h: 14, w: 21,
+... uom: "cm" } },
+... { item: "mat", qty: 85, tags: ["gray"], size: { h: 27.9, w: 35.5, uom:
+... "cm" } },
+... { item: "mousepad", qty: 25, tags: ["gel", "blue"], size: { h: 19, w:
+... 22.85, uom: "cm" } } ])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("5fd9eb8e83d0b07e52be45d2"),
+                ObjectId("5fd9eb8e83d0b07e52be45d3"),
+                ObjectId("5fd9eb8e83d0b07e52be45d4")
+        ]
+}
+> db.inventory.insertOne( { item: "canvas", qty: 100, tags: ["cotton"],
+... size: { h: 28, w: 35.5, uom: "cm" } } )
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("5fd9eb9a83d0b07e52be45d5")
+}
+> db.inventory.find({ item: "canvas" }).pretty()
+{
+        "_id" : ObjectId("5fd9eb9a83d0b07e52be45d5"),
+        "item" : "canvas",
+        "qty" : 100,
+        "tags" : [
+                "cotton"
+        ],
+        "size" : {
+                "h" : 28,
+                "w" : 35.5,
+                "uom" : "cm"
+        }
+}
+> db.collection.insertMany()
+uncaught exception: TypeError: documents is undefined :
+DBCollection.prototype.insertMany@src/mongo/shell/crud_api.js:307:5
+@(shell):1:1
+> db.inventory.insert([
+... { item: "journal", qty: 25, size: { h: 14, w: 21, uom: "cm" }, status:
+... "A" },
+... { item: "notebook", qty: 50, size: { h: 8.5, w: 11, uom: "in" },
+... status: "A" },
+... { item: "paper", qty: 100, size: { h: 8.5, w: 11, uom: "in" }, status:
+... "D" },
+... { item: "planner", qty: 75, size: { h: 22.85, w: 30, uom: "cm" },
+... status: "D" },
+... { item: "postcard", qty: 45, size: { h: 10, w: 15.25, uom: "cm" },
+... status: "A" }
+... ]);
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 5,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> db.inventory.find( { status: "D" } )
+{ "_id" : ObjectId("5fd9ebc183d0b07e52be45d8"), "item" : "paper", "qty" : 100, "size" : { "h" : 8.5, "w" : 11, "uom" : "in" }, "status" : "D" }
+{ "_id" : ObjectId("5fd9ebc183d0b07e52be45d9"), "item" : "planner", "qty" : 75, "size" : { "h" : 22.85, "w" : 30, "uom" : "cm" }, "status" : "D" }
+> db.inventory.insert([
+... { item: "journal", qty: 25, tags: ["blank", "red"], dim_cm: [ 14, 21 ]
+... },
+... { item: "notebook", qty: 50, tags: ["red", "blank"], dim_cm: [ 14, 21
+... ] },
+... { item: "paper", qty: 100, tags: ["red", "blank", "plain"], dim_cm: [
+... 14, 21 ] },
+... { item: "planner", qty: 75, tags: ["blank", "red"], dim_cm: [ 22.85,
+... 30 ] },
+... { item: "postcard", qty: 45, tags: ["blue"], dim_cm: [ 10, 15.25 ] }
+... ])
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 5,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> db.inventory.find({ tags: ["red", "blank"] })
+{ "_id" : ObjectId("5fd9ebe583d0b07e52be45dc"), "item" : "notebook", "qty" : 50, "tags" : [ "red", "blank" ], "dim_cm" : [ 14, 21 ] }
+> db.inventory1.insert( [
+... { item: "journal", status: "A", size: { h: 14, w: 21, uom: "cm" },
+... instock: [ { warehouse: "A", qty: 5 } ] },
+... { item: "notebook", status: "A", size: { h: 8.5, w: 11, uom: "in" },
+... instock: [ { warehouse: "C", qty: 5 } ] },
+... { item: "paper", status: "D", size: { h: 8.5, w: 11, uom: "in" },
+... instock: [ { warehouse: "A", qty: 60 } ] },
+... { item: "planner", status: "D", size: { h: 22.85, w: 30, uom: "cm" },
+... instock: [ { warehouse: "A", qty: 40 } ] },
+... { item: "postcard", status: "A", size: { h: 10, w: 15.25, uom: "cm" },
+... instock: [ { warehouse: "B", qty: 15 }, { warehouse: "C", qty: 35 } ] }
+... ])
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 5,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> db.inventory1.find( { status: "A" } )
+{ "_id" : ObjectId("5fd9ec0283d0b07e52be45e0"), "item" : "journal", "status" : "A", "size" : { "h" : 14, "w" : 21, "uom" : "cm" }, "instock" : [ { "warehouse" : "A", "qty" : 5 } ] }
+{ "_id" : ObjectId("5fd9ec0283d0b07e52be45e1"), "item" : "notebook", "status" : "A", "size" : { "h" : 8.5, "w" : 11, "uom" : "in" }, "instock" : [ { "warehouse" : "C", "qty" : 5 } ] }
+{ "_id" : ObjectId("5fd9ec0283d0b07e52be45e4"), "item" : "postcard", "status" : "A", "size" : { "h" : 10, "w" : 15.25, "uom" : "cm" }, "instock" : [ { "warehouse" : "B", "qty" : 15 }, { "warehouse" : "C", "qty" : 35 } ] }
+> db.inventory1.find( { status: "A" }, { item: 1, status: 1 } )
+{ "_id" : ObjectId("5fd9ec0283d0b07e52be45e0"), "item" : "journal", "status" : "A" }
+{ "_id" : ObjectId("5fd9ec0283d0b07e52be45e1"), "item" : "notebook", "status" : "A" }
+{ "_id" : ObjectId("5fd9ec0283d0b07e52be45e4"), "item" : "postcard", "status" : "A" }
+> db.inventory1.find( { status: "A" }, { item: 1, status: 1, _id: 0 } )
+{ "item" : "journal", "status" : "A" }
+{ "item" : "notebook", "status" : "A" }
+{ "item" : "postcard", "status" : "A" }
+> db.inventory1.find( { status: "A" }, { size: 0, instock: 0 } )
+{ "_id" : ObjectId("5fd9ec0283d0b07e52be45e0"), "item" : "journal", "status" : "A" }
+{ "_id" : ObjectId("5fd9ec0283d0b07e52be45e1"), "item" : "notebook", "status" : "A" }
+{ "_id" : ObjectId("5fd9ec0283d0b07e52be45e4"), "item" : "postcard", "status" : "A" }
+> db.additionalsubject.insert({name:'student1',subject:['arts','music']})
+WriteResult({ "nInserted" : 1 })
+> db.additionalsubject.insert({name:'student2',subject:['sports','arts']})
+WriteResult({ "nInserted" : 1 })
+> db.additionalsubject.insert({name:'student3',subject:['sports','cooking',
+... 'music']})
+WriteResult({ "nInserted" : 1 })
+> db.additionalsubject.insert({name:'student4',subject:['arts','craft','mus
+uncaught exception: SyntaxError: '' literal not terminated before end of script :
+@(shell):1:73
+> ic']})
+uncaught exception: SyntaxError: '' literal not terminated before end of script :
+@(shell):1:6
+> db.additionalsubject.find({subject:'arts'})
+{ "_id" : ObjectId("5fd9ec3883d0b07e52be45e5"), "name" : "student1", "subject" : [ "arts", "music" ] }
+{ "_id" : ObjectId("5fd9ec3883d0b07e52be45e6"), "name" : "student2", "subject" : [ "sports", "arts" ] }
+> --update --- whole replacement
+uncaught exception: SyntaxError: unexpected token: '--' :
+@(shell):1:9
+> db.additionalsubject.update({name:'student1'},{subject:['craft']})db.additionalsubject.insert({name:'student1',subject:['arts','music']})
+uncaught exception: SyntaxError: unexpected token: identifier :
+@(shell):1:66
+> db.additionalsubject.insert({name:'student1',subject:['arts','music']})
+WriteResult({ "nInserted" : 1 })
+> db.additionalsubject.insert({name:'student2',subject:['sports','arts']})
+WriteResult({ "nInserted" : 1 })
+> db.additionalsubject.insert({name:'student3',subject:['sports','cooking',
+... 'music']})
+WriteResult({ "nInserted" : 1 })
+> db.additionalsubject.insert({name:'student4',subject:['arts','craft','mus
+uncaught exception: SyntaxError: '' literal not terminated before end of script :
+@(shell):1:73
+> ic']})
+uncaught exception: SyntaxError: '' literal not terminated before end of script :
+@(shell):1:6
+> db.additionalsubject.find({subject:'arts'})
+{ "_id" : ObjectId("5fd9ec3883d0b07e52be45e5"), "name" : "student1", "subject" : [ "arts", "music" ] }
+{ "_id" : ObjectId("5fd9ec3883d0b07e52be45e6"), "name" : "student2", "subject" : [ "sports", "arts" ] }
+{ "_id" : ObjectId("5fd9ec5183d0b07e52be45e8"), "name" : "student1", "subject" : [ "arts", "music" ] }
+{ "_id" : ObjectId("5fd9ec5983d0b07e52be45e9"), "name" : "student2", "subject" : [ "sports", "arts" ] }
+> db.additionalsubject.update({name:'student1'},{subject:['craft']})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.additionalsubject.find().pretty()
+{ "_id" : ObjectId("5fd9ec3883d0b07e52be45e5"), "subject" : [ "craft" ] }
+{
+        "_id" : ObjectId("5fd9ec3883d0b07e52be45e6"),
+        "name" : "student2",
+        "subject" : [
+                "sports",
+                "arts"
+        ]
+}
+{
+        "_id" : ObjectId("5fd9ec3883d0b07e52be45e7"),
+        "name" : "student3",
+        "subject" : [
+                "sports",
+                "cooking",
+                "music"
+        ]
+}
+{
+        "_id" : ObjectId("5fd9ec5183d0b07e52be45e8"),
+        "name" : "student1",
+        "subject" : [
+                "arts",
+                "music"
+        ]
+}
+{
+        "_id" : ObjectId("5fd9ec5983d0b07e52be45e9"),
+        "name" : "student2",
+        "subject" : [
+                "sports",
+                "arts"
+        ]
+}
+{
+        "_id" : ObjectId("5fd9ec6083d0b07e52be45ea"),
+        "name" : "student3",
+        "subject" : [
+                "sports",
+                "cooking",
+                "music"
+        ]
+}
+> db.additionalsubject.update({name:'student2'},{$set:{name:'xyz'}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.inventory.insert( [
+... { item: "canvas", qty: 100, size: { h: 28, w: 35.5, uom: "cm" },
+... status: "A" },
+... { item: "journal", qty: 25, size: { h: 14, w: 21, uom: "cm" }, status:
+... "A" },
+... { item: "mat", qty: 85, size: { h: 27.9, w: 35.5, uom: "cm" }, status:
+... "A" },
+... { item: "mousepad", qty: 25, size: { h: 19, w: 22.85, uom: "cm" },
+... status: "P" },
+... { item: "notebook", qty: 50, size: { h: 8.5, w: 11, uom: "in" },
+... status: "P" },
+... { item: "paper", qty: 100, size: { h: 8.5, w: 11, uom: "in" }, status:
+... "D" },
+... { item: "planner", qty: 75, size: { h: 22.85, w: 30, uom: "cm" },
+... status: "D" },
+... { item: "postcard", qty: 45, size: { h: 10, w: 15.25, uom: "cm" },
+... status: "A" },
+... { item: "sketchbook", qty: 80, size: { h: 14, w: 21, uom: "cm" },
+... status: "A" },
+... { item: "sketch pad", qty: 95, size: { h: 22.85, w: 30.5, uom: "cm" },
+... status: "A" }
+... ]);
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 10,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> db.inventory.find({item:"paper"})
+{ "_id" : ObjectId("5fd9ebc183d0b07e52be45d8"), "item" : "paper", "qty" : 100, "size" : { "h" : 8.5, "w" : 11, "uom" : "in" }, "status" : "D" }
+{ "_id" : ObjectId("5fd9ebe583d0b07e52be45dd"), "item" : "paper", "qty" : 100, "tags" : [ "red", "blank", "plain" ], "dim_cm" : [ 14, 21 ] }
+{ "_id" : ObjectId("5fd9ec9983d0b07e52be45f0"), "item" : "paper", "qty" : 100, "size" : { "h" : 8.5, "w" : 11, "uom" : "in" }, "status" : "D" }
+> db.inventory.updateOne( { item: "paper" }, { $set: { "size.uom": "cm",
+... status: "P" }})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.inventory.find({item:"paper"})
+{ "_id" : ObjectId("5fd9ebc183d0b07e52be45d8"), "item" : "paper", "qty" : 100, "size" : { "h" : 8.5, "w" : 11, "uom" : "cm" }, "status" : "P" }
+{ "_id" : ObjectId("5fd9ebe583d0b07e52be45dd"), "item" : "paper", "qty" : 100, "tags" : [ "red", "blank", "plain" ], "dim_cm" : [ 14, 21 ] }
+{ "_id" : ObjectId("5fd9ec9983d0b07e52be45f0"), "item" : "paper", "qty" : 100, "size" : { "h" : 8.5, "w" : 11, "uom" : "in" }, "status" : "D" }
+> db.inventory.find({item:"paper"})
+{ "_id" : ObjectId("5fd9ebc183d0b07e52be45d8"), "item" : "paper", "qty" : 100, "size" : { "h" : 8.5, "w" : 11, "uom" : "cm" }, "status" : "P" }
+{ "_id" : ObjectId("5fd9ebe583d0b07e52be45dd"), "item" : "paper", "qty" : 100, "tags" : [ "red", "blank", "plain" ], "dim_cm" : [ 14, 21 ] }
+{ "_id" : ObjectId("5fd9ec9983d0b07e52be45f0"), "item" : "paper", "qty" : 100, "size" : { "h" : 8.5, "w" : 11, "uom" : "in" }, "status" : "D" }
+> db.inventory.find({item:"paper"})
+{ "_id" : ObjectId("5fd9ebc183d0b07e52be45d8"), "item" : "paper", "qty" : 100, "size" : { "h" : 8.5, "w" : 11, "uom" : "cm" }, "status" : "P" }
+{ "_id" : ObjectId("5fd9ebe583d0b07e52be45dd"), "item" : "paper", "qty" : 100, "tags" : [ "red", "blank", "plain" ], "dim_cm" : [ 14, 21 ] }
+{ "_id" : ObjectId("5fd9ec9983d0b07e52be45f0"), "item" : "paper", "qty" : 100, "size" : { "h" : 8.5, "w" : 11, "uom" : "in" }, "status" : "D" }
+> db.inventory.updateMany( { item: "paper" }, { $set: { "size.uom": "cm",
+... status: "P" }})
+{ "acknowledged" : true, "matchedCount" : 3, "modifiedCount" : 2 }
+> db.inventory.find({item:"paper"})
+{ "_id" : ObjectId("5fd9ebc183d0b07e52be45d8"), "item" : "paper", "qty" : 100, "size" : { "h" : 8.5, "w" : 11, "uom" : "cm" }, "status" : "P" }
+{ "_id" : ObjectId("5fd9ebe583d0b07e52be45dd"), "item" : "paper", "qty" : 100, "tags" : [ "red", "blank", "plain" ], "dim_cm" : [ 14, 21 ], "size" : { "uom" : "cm" }, "status" : "P" }
+{ "_id" : ObjectId("5fd9ec9983d0b07e52be45f0"), "item" : "paper", "qty" : 100, "size" : { "h" : 8.5, "w" : 11, "uom" : "cm" }, "status" : "P" }
+> db.inventory.update( { "status": "P" } , { $set: { status: "D" }})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.inventory.update( { "status": "P" }, { $set: { status: "D" }}, {
+... multi: true } )
+WriteResult({ "nMatched" : 4, "nUpserted" : 0, "nModified" : 4 })
+> db.inventory.insert( [
+... { item: "journal", qty: 25, size: { h: 14, w: 21, uom: "cm" }, status:
+... "A" },
+... { item: "notebook", qty: 50, size: { h: 8.5, w: 11, uom: "in" },
+... status: "P" },
+... { item: "paper", qty: 100, size: { h: 8.5, w: 11, uom: "in" }, status:
+... "D" },
+... { item: "planner", qty: 75, size: { h: 22.85, w: 30, uom: "cm" },
+... status: "D" },
+... { item: "postcard", qty: 45, size: { h: 10, w: 15.25, uom: "cm" },
+... status: "A" },
+... ]);
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 5,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> db.collection.deleteMany({})
+{ "acknowledged" : true, "deletedCount" : 0 }
+> db.collection.remove({})
+WriteResult({ "nRemoved" : 0 })
+> db.inventory.deleteMany({ status : "A" })
+{ "acknowledged" : true, "deletedCount" : 11 }
+> db.inventory.remove( { status : "P" } )
+WriteResult({ "nRemoved" : 1 })
+> db.inventory.deleteOne( { status: "D" } )
+{ "acknowledged" : true, "deletedCount" : 1 }
+> db.inventory.remove({ status: "D" }, 1)
+WriteResult({ "nRemoved" : 1 })
+> db.inventory.find({ status: "D" }).count()
+7
+> db.COLLECTION_NAME.find().limit(NUMBER)
+uncaught exception: ReferenceError: NUMBER is not defined :
+@(shell):1:1
+> db.marks.find()
+> db.marks.find().limit(5)
+> db.mycol.insertMany([
+... {title:"MongoDB Overview"},
+... {title:"NoSQL Overview"},
+... {title:"Tutorials Point Overview"}
+... ])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("5fd9edf483d0b07e52be45fa"),
+                ObjectId("5fd9edf483d0b07e52be45fb"),
+                ObjectId("5fd9edf483d0b07e52be45fc")
+        ]
+}
+> db.mycol.find({},{"title":1,_id:0}).limit(2)
+{ "title" : "MongoDB Overview" }
+{ "title" : "NoSQL Overview" }
+> ^C
+bye
+
+C:\WINDOWS\system32>ind()
+'ind' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>> db.marks.find().limit(5)
+The syntax of the command is incorrect.
+
+C:\WINDOWS\system32>> db.mycol.insertMany([
+The syntax of the command is incorrect.
+
+C:\WINDOWS\system32>... {title:"MongoDB Overview"},
+'...' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>... {title:"NoSQL Overview"},
+'...' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>... {title:"Tutorials Point Overview"}
+'...' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>... ])
+'...' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>{
+'{' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>        "acknowledged" : true,
+'"acknowledged"' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>        "insertedIds" : [
+'"insertedIds"' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>                ObjectId("5fd9edf483d0b07e52be45fa"),
+'ObjectId' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>                ObjectId("5fd9edf483d0b07e52be45fb"),
+'ObjectId' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>                ObjectId("5fd9edf483d0b07e52be45fc")
+'ObjectId' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>        ]
+']' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>}
+'}' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>> db.mycol.find({},{"title":1,_id:0}).limit(2)
+Access is denied.
+
+C:\WINDOWS\system32>{ "title" : "MongoDB Overview" }
+'{' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>{ "title" : "NoSQL Overview" }ind()
+'{' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>> db.marks.find().limit(5)
+The syntax of the command is incorrect.
+
+C:\WINDOWS\system32>> db.mycol.insertMany([
+The syntax of the command is incorrect.
+
+C:\WINDOWS\system32>... {title:"MongoDB Overview"},
+'...' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>... {title:"NoSQL Overview"},
+'...' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>... {title:"Tutorials Point Overview"}
+'...' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>... ])
+'...' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>{
+'{' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>        "acknowledged" : true,
+'"acknowledged"' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>        "insertedIds" : [
+'"insertedIds"' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>                ObjectId("5fd9edf483d0b07e52be45fa"),
+'ObjectId' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>                ObjectId("5fd9edf483d0b07e52be45fb"),
+'ObjectId' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>                ObjectId("5fd9edf483d0b07e52be45fc")
+'ObjectId' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>        ]
+']' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>}
+'}' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>> db.mycol.find({},{"title":1,_id:0}).limit(2)
+Access is denied.
+
+C:\WINDOWS\system32>{ "title" : "MongoDB Overview" }
+'{' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\WINDOWS\system32>{ "title" : "NoSQL Overview" }
